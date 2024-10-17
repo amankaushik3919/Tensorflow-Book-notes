@@ -184,5 +184,37 @@ erfc(x, name=None) | Returns the complementary error function of the argument
 
 ---
 
+[Implementation](./Code.md) of the above table code.
 
+---
+# Vector and matrix operations
+Function | Description
+--|--
+tensordot(a, b, axes, name=None) | Returns the sum of products for the elements in the given axis
+cross(a, b, name=None) | Returns the element-wise cross product
+diag(diagonal, name=None) | Returns a matrix with the given diagonal values, other values set to zero
+trace(x, name=None) | Returns the sum of the diagonal elements
+transpose(x, perm=None, name='transpose') | Switches rows and columns
+eye(num_rows, num_columns=None, batch_shape = None, dtype=tf.float32, name=None) | Creates an identity matrix with the given shape and data type
+matmul(a, b, transpose_a=False, transpose_b=False, adjoint_a=False, adjoint_b=False, a_is_sparse=False, b_is_parse=False, name=None) | Returns the product of the 2 input matrices
+norm(tensor, ord='euclidean', axis=None, keep_dims=False, name=None) | Returns the norm of the given axis of the input tensor with the specified order
+matrix_solve(A, b, adjoint=None, name=None) | returns the tensor x, such that Ax=b, where A is a matrix, and b is a vector
+qr(input, full_matrices=None, name=None) |  Return the eigenvectors and eigenvalues of the given matrix or matrices
+svd(tensor, full_matrices=False, compute_uv=True, name=None)  |  Factors the matrix into a unitary matrix, a diagonal matrix, and the conjugate transpose of the unitary matrix
+einsum(equation, *inputs) | executes a custom mathematical operation
 
+---
+
+The 2 most common functions are `tensordot and matmul`. `tensordot` returns the dot product of one or more axes of 2 input tensors. 
+That is `tensordot` multiplies the corresponding elements of both tensors dimensions and returns the sum of the products.
+
+---
+
+[Implementation](./Code.md)
+
+---
+
+`matmul` performs traditional matrix multiplication.
+[Implementation](./Code.md)
+
+---

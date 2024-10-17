@@ -7,3 +7,6 @@
 - [file7](./Code6.py)
 - [file8](./Code7.py)
 - [file9](./Code8.py)
+- [file10](./Code9.py)
+- [file11](./Code10.py)
+- [file12](./Code11.py)
