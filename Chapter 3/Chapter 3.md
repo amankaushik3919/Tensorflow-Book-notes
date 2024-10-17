@@ -137,6 +137,25 @@ negative(x, name=None) | Negates the tensor's elements
 sign(x, name=None) | Extracts the signs of the tensor's element
 reciprocal(x, name=None) | Computes the reciprocals
 
+[Implementation](./Code.md)
 ---
 
+When operating on floating-point values, `div` and `divide` produce the same result.
+For integers division, `divide` returns a floating-point result, and `div` returns an integer result.
+
+[implementation](./Code.md)
+
+---
+
+# Rounding and comparison
+Function | Description
+--|--
+round(x, name=None) | Rounds to the nearest integer, rounding up if there are 2 nearest integers
+rint(x, name=None) | Rounds to the nearest integer, rounding to the nearest even integer if there are 2 nearest integers.
+ceil(x, name=None) | Returns the smallest integer greater than the value
+floor(x, name=None) | returns the greatest integer less than the value
+maximum(x, y, name=None) | Returns a tensor containing the larger element of each input tensor
+minimum(x, y, name=None) | Returns a tensor containing the smaller element of each input tensor
+argmax(x, axis=None, name=None, dimension=None) | Returns the index of the greatest element in the tensor
+argmin(x, axis=None, name=None, dimension=None) | Returns the index of the smallest element in the tensor
 
