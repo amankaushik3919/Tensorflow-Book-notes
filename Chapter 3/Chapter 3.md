@@ -158,4 +158,31 @@ maximum(x, y, name=None) | Returns a tensor containing the larger element of eac
 minimum(x, y, name=None) | Returns a tensor containing the smaller element of each input tensor
 argmax(x, axis=None, name=None, dimension=None) | Returns the index of the greatest element in the tensor
 argmin(x, axis=None, name=None, dimension=None) | Returns the index of the smallest element in the tensor
+---
+
+The `round` function examines each element of a tensor and returns the closests integer. 
+if 2 closest integers are equally close, it returns the one further from 0.
+
+The implementation show `round, rint, ceil, and floor`.
+[imlementation](./Code.md)
+
+---
+# Exponents and logarithms
+Funciton | Description
+--|--
+square(x, name=None) | Returns the square of the argument
+square_difference(x, y, name=None) | Substracts the first argument from the second and returns the square
+sqrt(x, name=None) | Returns the square root of the argument
+rsqrt(x, name=None) | Returns the reciprocal of the square root
+pow(x, y, name=None) | Returns elements of the first tensor raised to the power of the elements of the second tensor
+exp(x, name=None) | Returns the exponential function of the argument
+expm1(x, name=None) | Returns the exponential function of teh argument minus one, exp(x) - 1
+log(x, name=None) | Returns the natural logarithm of the argument
+log1p(x, name = None) | Returns the natural logarithm of the argument plus 1, log(x + 1)
+erf(x, name=None) | Returns the error function of the argument
+erfc(x, name=None) | Returns the complementary error function of the argument
+
+---
+
+
 
