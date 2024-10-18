@@ -12,7 +12,7 @@ c = tf.add(a, b)
 e = tf.multiply(c, d)
 ```
 The below is the image the tensorflow saves in this graph.
-![Image](https://github.com/amankaushik3919/Tensorflow-Book-notes/edit/main/Chapter%204/Chapter4.md)
+![Image](https://github.com/amankaushik3919/Tensorflow-Book-notes/blob/main/Chapter%204/Image%20Masala.jpeg)
 The addition operation receives the result of mltiplication.
 
 ---
