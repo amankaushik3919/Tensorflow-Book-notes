@@ -108,8 +108,16 @@ The below saves the graphdef's data in `graph.data` file:
 ```Code
 tf.train.write_graph(tf.get_default_graph(), os.getcwd(), 'graph.dat')
 ```
+Similarly an app can load a `GraphDef` from a file.
 
+- `TextFormat.Merge`(data, graphdef): Initializes a `GraphDef` from text elements
+- Creating `GraphDefs`: Converting a graph into a procol buffer.
 
-
+`TextFormat` class is provided in `google.protobuf`.\
+For more info. https://developers.google.com/protocol-buffers/docs/pythontutorial.
 
 ----
+
+# Creating and Running Sessions
+
+
