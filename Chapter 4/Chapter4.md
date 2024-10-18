@@ -32,16 +32,17 @@ The `Graph` class provides many methods that access and modify the graph's conte
 
 `Graph stores its elements in a set of named collections.`
 
-Method | Description
---|--
-get_tensor_by_name(name) | Returns the tensor with the given name
-get_operation_by_name(name) | Returns the operation with the given name
-get_operations() | Returns a list containing the graph's operations
-get_all_collection_keys() | Return a list of the graph's collections
-get_collection(name, scope=None) | Returns a list of values in the given collection
-add_to_collection(name, value) | Adds the value to the container, can be accessed with name
-add_to_collection(name, value) | Adds the value to the containers, can be accessed with name
+| Method                           | Description                                                 |
+| -------------------------------- | ----------------------------------------------------------- |
+| get_tensor_by_name(name)         | Returns the tensor with the given name                      |
+| get_operation_by_name(name)      | Returns the operation with the given name                   |
+| get_operations()                 | Returns a list containing the graph's operations            |
+| get_all_collection_keys()        | Return a list of the graph's collections                    |
+| get_collection(name, scope=None) | Returns a list of values in the given collection            |
+| add_to_collection(name, value)   | Adds the value to the container, can be accessed with name  |
+| add_to_collection(name, value)   | Adds the value to the containers, can be accessed with name |
 
 ---
 
 [Implementaion](./Code4.md)
+
