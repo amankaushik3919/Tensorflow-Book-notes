@@ -119,5 +119,3 @@ For more info. https://developers.google.com/protocol-buffers/docs/pythontutoria
 ----
 
 # Creating and Running Sessions
-
-
