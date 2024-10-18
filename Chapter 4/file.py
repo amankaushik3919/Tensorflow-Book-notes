@@ -18,3 +18,4 @@ with newgraph.as_default():
     newgraph.get()
 
 "now with graph as default is called, Tf will add all new tensors to the `newgraph` not in `graph variable`"
+

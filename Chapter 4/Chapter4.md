@@ -46,3 +46,70 @@ The `Graph` class provides many methods that access and modify the graph's conte
 
 [Implementaion](./Code4.md)
 
+- The additional info. is stored in a set of lists called the graph's `collections`.
+- Dictionariesm you can access the elements of a collections using identifiers called `keys`. 
+
+| Collection Key           | Description                                   |
+| ------------------------ | --------------------------------------------- |
+| GLOBAL_VARIABLES         | All vars used in the application              |
+| LOCAL_VARIABLES          | Vars local to this machine                    |
+| MODEL_VARIABLES          | Vars used in the model                        |
+| TRAINABLE_VARIABLES      | Vars capable of being trained by an optimizer |
+| MOVING_AVERAGE_VARIABLES | Variables that maintain moving averages       |
+| SUMMARIES                | Tensor summaries                              |
+| QUEUE_RUNNERS            | QueueRunners that provide input data          |
+| REGULARIZATION_LOSSES    | Losses produced by regularization             |
+---
+\
+\
+\
+\
+\
+.
+
+# Creating GraphsDefs
+
+Many Applications need access to graphs from other tf apps. The `as_graph_def` method makes this possible. This ethod returns a serialized form of a `Graph` called a `GraphDef`.
+
+`Protocol Buffer` or `protobuf`: this is a format used to store `graphdef` graph's data.
+
+This is generated in text or binary form. And in text form it is in JSON format.
+
+GraphDef Node has:
+1. name field
+2. op field
+3. 1 or more attr fields
+
+Example:
+```Code
+node {
+    name: "..."
+    op:"..."
+    arr { ... }
+    arr { ... }
+    ...
+}
+```
+
+Last element is versions element. Identifies the version of the GraphDef structure.
+
+The graphDef has 3 nodes. Two that represents Tensors and One that represents the operation taht adds the tensors.
+
+---
+`write_graph`(graph/graph_Def, logdir, name, as_text=True)
+
+The above is in the `tf.train` makes it possible to store a Graphdef data to a file.
+
+---
+
+To store a file written in text or binary form:
+The below saves the graphdef's data in `graph.data` file:
+
+```Code
+tf.train.write_graph(tf.get_default_graph(), os.getcwd(), 'graph.dat')
+```
+
+
+
+
+----
