@@ -119,3 +119,101 @@ For more info. https://developers.google.com/protocol-buffers/docs/pythontutoria
 ----
 
 # Creating and Running Sessions
+# Creating Sessions
+| Graph                                    | Session                                          |
+| ---------------------------------------- | ------------------------------------------------ |
+| Every Session must be explicitly created | You can create a `Session` by calling tf.Session |
+
+tf.Session accepts 3 optional arguments:
+- `target`: Name of the execution engine
+- `graph`: The `Graph` instance to be launched
+- `config`: A `ConfigProto` that configures the session's execution
+
+---
+
+Most of the settings in a `ConfigProto` relate to threads and devices.
+
+By Default, a session accesses tensors and operations in the default graph. But if You set the `graph` parameter in tf.Session, the session will execute that graph instead.
+
+---
+
+# Executing a session
+> The most important method of the `Session` class is `run`
+
+- `fetches`: Identifiers one or more operations or tensors to be executed, It accepts a wide range of data types. Most app set this param equal to an operation, a tensor, or the name of an operation or tensor.
+- `feed_dict`: Data to be fed into a tensor
+- `options`: Configuration options for the session's execution
+- `run-metadata`: Output data from the session
+
+---
+If you assign `fetches` to a tensor, `run` will return an `ndarray` with the same values and shape. 
+
+[Implementaion](./Code4.md)
+
+---
+
+if you assign `fetches` to an Operation, `run` will return an `ndarray` containing the values of the tensor produced by the operation.
+
+[Implementaion file2.py](./Code4.md)
+
+---
+If you assign `fetches` to a collection of elements, `run` will return a similar collection containing the processed results.
+
+[Implementaion file2.py](./Code4.md)
+
+The `feed_dict` parameter of `run` plays an important role in applications that process training data with batches.
+
+---
+# Interactive sessions
+In this session interpreter show output of each line when a code run (line by line output).
+
+> to support interactive development TF provides the `InteractiveSession` class. 
+An `InteractiveSession` serves the same role as `Session`, Itself, Default Session when it is constructed.
+
+---
+
+Instead of calling `sess.run`, you can evaluate tensors by calling their `eval` method. There is `run` in `Operation` class also.
+
+[Impelementaion](./Code4.md)
+
+---
+
+# Writing Message to the log
+5 point to know about tf logging:
+- Tf enables logging through the `tf.logging` package.
+- Tf logging is based on regular python logging, and many `tf.logging` functions are identical to the methods of Python's `Logger` class.
+- Tf supports 5 logging levels. In order of severity, these are `DEBUG, INFO, WARN, ERROR, and FATAL`.
+- To enable logging, an app needs to call `tf.logging` `set_verbosity` with the lowest level of severity that should be logged.
+- By default, TF writes log messages to standard output. At the time of this writing, TF logging does not support writing messages to a log file.
+
+---
+[Implementaion](./Code4.md)
+
+---
+| Function                             | Description                                                                   |
+| ------------------------------------ | ----------------------------------------------------------------------------- |
+| set_verbosity(level)                 | Enables logging for messages of the given severity level and greater severity |
+| debug(msg, *args, **kwargs)          | Logs a message at DEBUG severity                                              |
+| info(msg, *args, **kwargs)           | Logs a message at INFO severity                                               |
+| warn(msg, *args, **kwargs)           | Logs a message at Warn severity                                               |
+| error(msg, *args, **kwargs)          | Logs a message at ERROR severity                                              |
+| fetal(msg, *args, **kwargs)          | Logs a message at FETAL severity                                              |
+| flush()                              | Forces logging operations to complete                                         |
+| log(level, msg, *args, **kwargs)     | Logs a message at the given severity level                                    |
+| log_if(level, msg, condition, *args) | Logs a message at the given severity level if the condition is true           |
+| log_first_n(level, msg, n, *ars)     | Logs a message at the given severity level at most `n` times                  |
+| log_every_n(level, msg, n, *args)    | Logs a message at the given severity level once every `n` times               |
+
+---
+
+> The 3rd parameter of `log_if` defines a condition that determines when the message should be logged.
+
+```
+tf.logging.log_if(tf.logging.INFO, 'Output: %f', (output>0), output)
+```
+
+The 3 args of `log_first_n` and `log_every_n` is an integer that determines how often should be performed. 
+
+
+---
+
