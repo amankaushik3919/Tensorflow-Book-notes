@@ -17,3 +17,4 @@ t2 = tf.constant(3.5)
 prod = tf.compat.v1.multiply(t1, t2)
 sess = tf.compat.v1.InteractiveSession()
 print("Product: ", prod.eval())
+
