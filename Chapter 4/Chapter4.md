@@ -214,6 +214,140 @@ tf.logging.log_if(tf.logging.INFO, 'Output: %f', (output>0), output)
 
 The 3 args of `log_first_n` and `log_every_n` is an integer that determines how often should be performed. 
 
+In `log_first_n`, the value sets the max number of times the function should write its message to the log.
+In `log_every_n`, the value tells teh function to log its message once every _N_ times it is called.
 
 ---
+
+# Visualizing Data with TensorBoard
+
+>Logging is less used for large datasets.
+>Logging is not sufficient to monitor how data changes with each execution.
+
+The `TensorBoard` resolves this issue.
+
+`TensorBoard` reads an app data and display it in a web page.
+it requires specially formatted data.
+
+# Running TensorBoard
+
+It accepts 3 flags.
+- --logdir DIR: The directory containing the summary data.
+- --host HOST: Identifies the host portion of the page's URL.
+- --port PORT: Identifies the port of the web page's URL.
+
+Default IP == 127.0.0.1\
+Default Port == 6006\
+Default URL == http://localhost:6006
+
+
+--logidir flag is required, So that tensorboard will not launch without data.
+where `flag` refers to a directory containing special file _`event file`_.
+The `event file` contains the summary data that is needed for tensorboard, for visualization. 
+
+----
+# Generating Summary Data
+Creating math operation and execute them in a session.
+The above talk introduces to a new type of operation called a _`summary operation`_. 
+This resembles other TF operations, but when a session executes a summary operation, 
+the result is a protocol buffer thatcontains summary data. An app can write this buffer to a file whose content can be displayed with Tensor Board(TB).
+
+TB can illustrate many DT's and each corressponds to a function of tf.summary.
+
+Function | Description
+--|--
+scalar(name, tensor, collections=None) | Creates a summary operation that provides data about a scalar
+histogram(name, values, collections=None) | Creates a summary operation that provides histogram data
+audio(name, tensor, sample_rate, max_output=3, collections=None) | Creates a summary operation that provides data from an audio source
+image(name, tensor, max_outputs=3, collections=None) | Creates a summary operation that provides data from an image
+merge(inputs, collections=None, name=None) | Merges the specified summary operations into one summary operation
+merge_all(key=tf.GraphKeys.SUMMARIES) | Merges summary operations into one summary operation
+
+---
+- tf.summary.scalar generates operations that provide scalar data.
+- tf.summary.merge_all combines them into one operation.
+- sess.run executes the merged summary operation.
+
+[Implementation](./Code4.md)
+
+----
+# Creating Custom Summaries
+By Creating `Summary` object you can generate custom summary data.
+The `Summary class` is python wrapper for a protocol buffer containing summary data.
+
+`Summary` instance creation can be done `tf.Summary` and setting its value parameter to a list of `Summary.Value` buffers. Each `Summary.Value` can have a `none_name`, a tag, and one of 5 data field:
+- simple_value: - a 32-bit floating-point value.
+- image: - an Image instance containing pixel data
+- histo: - a HistogramProto containing data to be displayed in a histogram
+- audio: - an Audio instance containing audio data
+- tensor: - a TensorProto containing data related to tensors.
+
+#### Example Code
+```Python
+custom_summary = tf.Symmary(value=[
+    tf.Summary.Value(tag="num_tag", simple_value=5.0),
+])
+```
+
+# Writing Summary data
+
+### Creating a File Writer
+```python
+tf.summary.FileWriter(logdir, graph=None, max_queue=10, flush_secs=120, filename_suffix=None)
+```
+A FileWriter updates the event file asynchronously.
+
+The code creates FileWriter and configures it to create a directory named `log`. The event file in this will contain summary data for the default graph.
+```python
+fw = tf.summary.FileWriter("log", graph=tf.get_default_graph())
+```
+
+#### Printing data to the event file
+
+Method | Description
+--|--
+add_summary(summary, global_step=None) | Adds summary data to the event file
+add_event(event) | Adds event data to the event file
+add_graph(graph, global_step=None, graph_def=None) | Adds summary data for the graph to the event file
+add_meta_graph(meta_graph_def, global_step=None) | Adds data from a MetaGraphDef to the event file
+add_run_metadata(run_metadata, tag, global_step=None) | Adds run metadata from a session to the event file
+add_session_log(session_log, global_step=None) | Adds data from a SessionLog to the event file
+flush() | Executes pending write operations
+close() | Flushes write operations and closes teh event file
+reopen() | Reopens the eveent file for writing summary data
+
+---
+
+`add_summary` prints summary data. 
+
+```python
+# Merge operations into a single operation
+merged_op = tf.summary.merge_all()
+
+# Create the FileWriter
+writer = tf.summary.FileWriter("summar")
+
+with tf.Session() as sess:
+    _, summary = sess.run([sum, merged_op])
+    writer.add_summary(summary)
+    writer.close()
+```
+
+Each event has a `wall_time` field that identifies the time and a step that identifies the global. An `Event'`s data is specified by the `what` field, which can be set top one of the following:
+- file_version: - The version of the event file
+- graph_def: - Content of GraphDef buffer
+- summary: - an Summary containing summary data
+- log_message: - LogMessage containing logged messages
+- session_log: - SessionLog containing the session's state
+- tagged_run_metadata: - TaggedRunMetadata contaning metadata from the session
+- meta_graph_def: - content of a MetaGraphDef buffers
+
+```python
+new_summary=tf.Summary(value=[
+    tf.Summary.Value(tag="val", simple_value=9.0),
+])
+event = tf.Event(wall_time=time.time(), summary=new_summary)
+file_writer.add_event(event)
+```
+
 
